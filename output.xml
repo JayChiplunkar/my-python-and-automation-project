@@ -1,394 +1,823 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.10.16 on win32)" generated="2026-04-06T14:59:59.661843" rpa="false" schemaversion="5">
-<suite id="s1" name="Order Api Tests V3" source="D:\My_Projects\exercise\order_api_tests_v3.robot">
+<robot generator="Robot 7.4.2 (Python 3.10.16 on win32)" generated="2026-04-07T08:48:29.554223" rpa="false" schemaversion="5">
+<suite id="s1" name="Order Api Tests V2" source="D:\My_Projects\exercise\order_api_tests_v2.robot">
 <kw name="Create Session" owner="RequestsLibrary" type="SETUP">
-<msg time="2026-04-06T15:00:00.263963" level="INFO">Creating Session using : alias=order_api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2026-04-07T08:48:29.918002" level="INFO">Creating Session using : alias=order_api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>order_api</arg>
 <arg>${BASE_URL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2026-04-06T15:00:00.262962" elapsed="0.001001"/>
+<status status="PASS" start="2026-04-07T08:48:29.918002" elapsed="0.001001"/>
 </kw>
-<test id="s1-t1" name="TC001: Create Order With Valid Data" line="45">
+<test id="s1-t1" name="TC001: Create Order With Valid Data" line="42">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-04-06T15:00:00.269959" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '5', 'price': '1200.50'}</msg>
+<msg time="2026-04-07T08:48:29.922005" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '5', 'price': '1200.50'}</msg>
 <var>${order_payload}</var>
 <arg>customer_name=${VALID_CUSTOMER_NAME}</arg>
 <arg>product=${VALID_PRODUCT}</arg>
 <arg>quantity=${VALID_QUANTITY}</arg>
 <arg>price=${VALID_PRICE}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-04-06T15:00:00.266962" elapsed="0.002997"/>
+<status status="PASS" start="2026-04-07T08:48:29.920003" elapsed="0.002002"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-06T15:00:02.355205" level="INFO">POST Request : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.118314" level="INFO">POST Request : url=http://localhost:8000/orders 
  path_url=/orders 
  headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '93', 'Content-Type': 'application/json'} 
  body=b'{"customer_name": "John Doe", "product": "Apple Laptop", "quantity": "5", "price": "1200.50"}' 
  </msg>
-<msg time="2026-04-06T15:00:02.355205" level="INFO">POST Response : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.118314" level="INFO">POST Response : url=http://localhost:8000/orders 
  status=200, reason=OK 
- headers={'date': 'Mon, 06 Apr 2026 09:30:01 GMT', 'server': 'uvicorn', 'content-length': '137', 'content-type': 'application/json'} 
- body={"id":"69d37d1a5ea213418f09a371","customer_name":"John Doe","product":"Apple Laptop","quantity":5,"price":1200.5,"status":"Order Placed"} 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '137', 'content-type': 'application/json'} 
+ body={"id":"69d477885ea213418f09a372","customer_name":"John Doe","product":"Apple Laptop","quantity":5,"price":1200.5,"status":"Order Placed"} 
  </msg>
-<msg time="2026-04-06T15:00:02.356202" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<msg time="2026-04-07T08:48:32.118314" level="INFO">${response} = &lt;Response [200]&gt;</msg>
 <var>${response}</var>
 <arg>order_api</arg>
 <arg>${CREATE_ORDER_ENDPOINT}</arg>
 <arg>json=${order_payload}</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-04-06T15:00:00.270962" elapsed="2.085240"/>
+<status status="PASS" start="2026-04-07T08:48:29.922005" elapsed="2.196309"/>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.361208" level="INFO">Argument types are:
+<msg time="2026-04-07T08:48:32.120315" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${response.status_code}</arg>
 <arg>200</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.357203" elapsed="0.005000"/>
+<status status="PASS" start="2026-04-07T08:48:32.119313" elapsed="0.002000"/>
 </kw>
 <kw name="Dictionary Should Contain Key" owner="Collections">
 <arg>${response.json()}</arg>
 <arg>id</arg>
 <doc>Fails if ``key`` is not found from ``dictionary``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.363203" elapsed="0.004022"/>
+<status status="PASS" start="2026-04-07T08:48:32.121313" elapsed="0.001999"/>
 </kw>
 <kw name="Dictionary Should Contain Key" owner="Collections">
 <arg>${response.json()}</arg>
 <arg>customer_name</arg>
 <doc>Fails if ``key`` is not found from ``dictionary``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.368203" elapsed="0.003004"/>
+<status status="PASS" start="2026-04-07T08:48:32.123312" elapsed="0.001001"/>
 </kw>
 <kw name="Dictionary Should Contain Key" owner="Collections">
 <arg>${response.json()}</arg>
 <arg>product</arg>
 <doc>Fails if ``key`` is not found from ``dictionary``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.372203" elapsed="0.005022"/>
+<status status="PASS" start="2026-04-07T08:48:32.124313" elapsed="0.002001"/>
 </kw>
 <kw name="Dictionary Should Contain Key" owner="Collections">
 <arg>${response.json()}</arg>
 <arg>quantity</arg>
 <doc>Fails if ``key`` is not found from ``dictionary``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.378225" elapsed="0.002980"/>
+<status status="PASS" start="2026-04-07T08:48:32.126314" elapsed="0.002000"/>
 </kw>
 <kw name="Dictionary Should Contain Key" owner="Collections">
 <arg>${response.json()}</arg>
 <arg>price</arg>
 <doc>Fails if ``key`` is not found from ``dictionary``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.382205" elapsed="0.002999"/>
+<status status="PASS" start="2026-04-07T08:48:32.128314" elapsed="0.001000"/>
 </kw>
 <kw name="Dictionary Should Contain Key" owner="Collections">
 <arg>${response.json()}</arg>
 <arg>status</arg>
 <doc>Fails if ``key`` is not found from ``dictionary``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.386204" elapsed="0.003002"/>
+<status status="PASS" start="2026-04-07T08:48:32.130314" elapsed="0.001002"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${response.json()}[status]</arg>
 <arg>${STATUS_ORDER_PLACED}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.390206" elapsed="0.004001"/>
+<status status="PASS" start="2026-04-07T08:48:32.131316" elapsed="0.001999"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.402226" level="INFO">${CREATED_ORDER_ID} = 69d37d1a5ea213418f09a371</msg>
+<msg time="2026-04-07T08:48:32.136314" level="INFO">${CREATED_ORDER_ID} = 69d477885ea213418f09a372</msg>
 <arg>${CREATED_ORDER_ID}</arg>
 <arg>${response.json()}[id]</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.394207" elapsed="0.008019"/>
+<status status="PASS" start="2026-04-07T08:48:32.133315" elapsed="0.002999"/>
 </kw>
 <doc>Create an order with all valid parameters and verify response</doc>
 <tag>CREATE</tag>
 <tag>VALID</tag>
-<status status="PASS" start="2026-04-06T15:00:00.264965" elapsed="2.139241"/>
+<status status="PASS" start="2026-04-07T08:48:29.919003" elapsed="2.218311"/>
 </test>
-<test id="s1-t2" name="TC002: Create Order With Invalid Customer Name (Single Character)" line="61">
+<test id="s1-t2" name="TC002: Create Order With Invalid Customer Name (Single Character)" line="58">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.410117" level="INFO">${order_payload} = {'customer_name': 'A', 'product': 'Apple Laptop', 'quantity': '5', 'price': '1200.50'}</msg>
+<msg time="2026-04-07T08:48:32.139314" level="INFO">${order_payload} = {'customer_name': 'A', 'product': 'Apple Laptop', 'quantity': '5', 'price': '1200.50'}</msg>
 <var>${order_payload}</var>
 <arg>customer_name=${INVALID_CUSTOMER_SINGLE_CHAR}</arg>
 <arg>product=${VALID_PRODUCT}</arg>
 <arg>quantity=${VALID_QUANTITY}</arg>
 <arg>price=${VALID_PRICE}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.408116" elapsed="0.003001"/>
+<status status="PASS" start="2026-04-07T08:48:32.138314" elapsed="0.001000"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-06T15:00:02.420429" level="INFO">POST Request : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.151421" level="INFO">POST Request : url=http://localhost:8000/orders 
  path_url=/orders 
  headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '86', 'Content-Type': 'application/json'} 
  body=b'{"customer_name": "A", "product": "Apple Laptop", "quantity": "5", "price": "1200.50"}' 
  </msg>
-<msg time="2026-04-06T15:00:02.420429" level="INFO">POST Response : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.151421" level="INFO">POST Response : url=http://localhost:8000/orders 
  status=422, reason=Unprocessable Entity 
- headers={'date': 'Mon, 06 Apr 2026 09:30:01 GMT', 'server': 'uvicorn', 'content-length': '167', 'content-type': 'application/json'} 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '167', 'content-type': 'application/json'} 
  body={"detail":[{"type":"value_error","loc":["body","customer_name"],"msg":"Value error, customer_name must contain at least 2 characters","input":"A","ctx":{"error":{}}}]} 
  </msg>
-<msg time="2026-04-06T15:00:02.421430" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<msg time="2026-04-07T08:48:32.151421" level="INFO">${response} = &lt;Response [422]&gt;</msg>
 <var>${response}</var>
 <arg>order_api</arg>
 <arg>${CREATE_ORDER_ENDPOINT}</arg>
 <arg>json=${order_payload}</arg>
 <arg>expected_status=422</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.411406" elapsed="0.010024"/>
+<status status="PASS" start="2026-04-07T08:48:32.139314" elapsed="0.012107"/>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.425153" level="INFO">Argument types are:
+<msg time="2026-04-07T08:48:32.153419" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${response.status_code}</arg>
 <arg>422</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.422151" elapsed="0.004002"/>
+<status status="PASS" start="2026-04-07T08:48:32.152420" elapsed="0.000999"/>
 </kw>
 <doc>Create order with single character customer name should fail with 422</doc>
 <tag>CREATE</tag>
 <tag>INVALID</tag>
-<status status="PASS" start="2026-04-06T15:00:02.405683" elapsed="0.020839"/>
+<status status="PASS" start="2026-04-07T08:48:32.137314" elapsed="0.016105"/>
 </test>
-<test id="s1-t3" name="TC003: Create Order With Invalid Product (Single Character)" line="69">
+<test id="s1-t3" name="TC003: Create Order With Invalid Quantity (Zero)" line="66">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.433013" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'B', 'quantity': '5', 'price': '1200.50'}</msg>
-<var>${order_payload}</var>
-<arg>customer_name=${VALID_CUSTOMER_NAME}</arg>
-<arg>product=${INVALID_PRODUCT_SINGLE_CHAR}</arg>
-<arg>quantity=${VALID_QUANTITY}</arg>
-<arg>price=${VALID_PRICE}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.430993" elapsed="0.002020"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-06T15:00:02.441993" level="INFO">POST Request : url=http://localhost:8000/orders 
- path_url=/orders 
- headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '82', 'Content-Type': 'application/json'} 
- body=b'{"customer_name": "John Doe", "product": "B", "quantity": "5", "price": "1200.50"}' 
- </msg>
-<msg time="2026-04-06T15:00:02.441993" level="INFO">POST Response : url=http://localhost:8000/orders 
- status=422, reason=Unprocessable Entity 
- headers={'date': 'Mon, 06 Apr 2026 09:30:01 GMT', 'server': 'uvicorn', 'content-length': '155', 'content-type': 'application/json'} 
- body={"detail":[{"type":"value_error","loc":["body","product"],"msg":"Value error, product must contain at least 2 characters","input":"B","ctx":{"error":{}}}]} 
- </msg>
-<msg time="2026-04-06T15:00:02.442993" level="INFO">${response} = &lt;Response [422]&gt;</msg>
-<var>${response}</var>
-<arg>order_api</arg>
-<arg>${CREATE_ORDER_ENDPOINT}</arg>
-<arg>json=${order_payload}</arg>
-<arg>expected_status=422</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.433992" elapsed="0.009001"/>
-</kw>
-<kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.447752" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;class 'str'&gt;</msg>
-<arg>${response.status_code}</arg>
-<arg>422</arg>
-<doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.443750" elapsed="0.005008"/>
-</kw>
-<doc>Create order with single character product should fail with 422</doc>
-<tag>CREATE</tag>
-<tag>INVALID</tag>
-<status status="PASS" start="2026-04-06T15:00:02.427990" elapsed="0.021761"/>
-</test>
-<test id="s1-t4" name="TC004: Create Order With Invalid Quantity (Zero)" line="77">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.455553" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '0', 'price': '1200.50'}</msg>
+<msg time="2026-04-07T08:48:32.155420" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '0', 'price': '1200.50'}</msg>
 <var>${order_payload}</var>
 <arg>customer_name=${VALID_CUSTOMER_NAME}</arg>
 <arg>product=${VALID_PRODUCT}</arg>
 <arg>quantity=${INVALID_QUANTITY_ZERO}</arg>
 <arg>price=${VALID_PRICE}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.453551" elapsed="0.003002"/>
+<status status="PASS" start="2026-04-07T08:48:32.155420" elapsed="0.001000"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-06T15:00:02.464837" level="INFO">POST Request : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.160423" level="INFO">POST Request : url=http://localhost:8000/orders 
  path_url=/orders 
  headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '93', 'Content-Type': 'application/json'} 
  body=b'{"customer_name": "John Doe", "product": "Apple Laptop", "quantity": "0", "price": "1200.50"}' 
  </msg>
-<msg time="2026-04-06T15:00:02.465853" level="INFO">POST Response : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.160423" level="INFO">POST Response : url=http://localhost:8000/orders 
  status=422, reason=Unprocessable Entity 
- headers={'date': 'Mon, 06 Apr 2026 09:30:01 GMT', 'server': 'uvicorn', 'content-length': '145', 'content-type': 'application/json'} 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '145', 'content-type': 'application/json'} 
  body={"detail":[{"type":"value_error","loc":["body","quantity"],"msg":"Value error, quantity must be greater than 0","input":"0","ctx":{"error":{}}}]} 
  </msg>
-<msg time="2026-04-06T15:00:02.465853" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<msg time="2026-04-07T08:48:32.161421" level="INFO">${response} = &lt;Response [422]&gt;</msg>
 <var>${response}</var>
 <arg>order_api</arg>
 <arg>${CREATE_ORDER_ENDPOINT}</arg>
 <arg>json=${order_payload}</arg>
 <arg>expected_status=422</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.456830" elapsed="0.009023"/>
+<status status="PASS" start="2026-04-07T08:48:32.156420" elapsed="0.005001"/>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.470852" level="INFO">Argument types are:
+<msg time="2026-04-07T08:48:32.163420" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${response.status_code}</arg>
 <arg>422</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.466835" elapsed="0.004017"/>
+<status status="PASS" start="2026-04-07T08:48:32.161421" elapsed="0.001999"/>
 </kw>
 <doc>Create order with quantity 0 should fail with 422</doc>
 <tag>CREATE</tag>
 <tag>INVALID</tag>
-<status status="PASS" start="2026-04-06T15:00:02.451751" elapsed="0.019797"/>
+<status status="PASS" start="2026-04-07T08:48:32.154420" elapsed="0.010000"/>
 </test>
-<test id="s1-t5" name="TC005: Create Order With Invalid Quantity (Negative)" line="85">
+<test id="s1-t4" name="TC004: Create Order With Invalid Price (Zero)" line="74">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.477118" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '-5', 'price': '1200.50'}</msg>
-<var>${order_payload}</var>
-<arg>customer_name=${VALID_CUSTOMER_NAME}</arg>
-<arg>product=${VALID_PRODUCT}</arg>
-<arg>quantity=${INVALID_QUANTITY_NEGATIVE}</arg>
-<arg>price=${VALID_PRICE}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.475123" elapsed="0.002995"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-06T15:00:02.487349" level="INFO">POST Request : url=http://localhost:8000/orders 
- path_url=/orders 
- headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '94', 'Content-Type': 'application/json'} 
- body=b'{"customer_name": "John Doe", "product": "Apple Laptop", "quantity": "-5", "price": "1200.50"}' 
- </msg>
-<msg time="2026-04-06T15:00:02.488349" level="INFO">POST Response : url=http://localhost:8000/orders 
- status=422, reason=Unprocessable Entity 
- headers={'date': 'Mon, 06 Apr 2026 09:30:01 GMT', 'server': 'uvicorn', 'content-length': '146', 'content-type': 'application/json'} 
- body={"detail":[{"type":"value_error","loc":["body","quantity"],"msg":"Value error, quantity must be greater than 0","input":"-5","ctx":{"error":{}}}]} 
- </msg>
-<msg time="2026-04-06T15:00:02.488349" level="INFO">${response} = &lt;Response [422]&gt;</msg>
-<var>${response}</var>
-<arg>order_api</arg>
-<arg>${CREATE_ORDER_ENDPOINT}</arg>
-<arg>json=${order_payload}</arg>
-<arg>expected_status=422</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.478347" elapsed="0.010002"/>
-</kw>
-<kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.492377" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;class 'str'&gt;</msg>
-<arg>${response.status_code}</arg>
-<arg>422</arg>
-<doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.489376" elapsed="0.004002"/>
-</kw>
-<doc>Create order with negative quantity should fail with 422</doc>
-<tag>CREATE</tag>
-<tag>INVALID</tag>
-<status status="PASS" start="2026-04-06T15:00:02.473109" elapsed="0.020579"/>
-</test>
-<test id="s1-t6" name="TC006: Create Order With Invalid Price (Zero)" line="93">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.500240" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '5', 'price': '0.0'}</msg>
+<msg time="2026-04-07T08:48:32.166421" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '5', 'price': '0.0'}</msg>
 <var>${order_payload}</var>
 <arg>customer_name=${VALID_CUSTOMER_NAME}</arg>
 <arg>product=${VALID_PRODUCT}</arg>
 <arg>quantity=${VALID_QUANTITY}</arg>
 <arg>price=${INVALID_PRICE_ZERO}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.497239" elapsed="0.003001"/>
+<status status="PASS" start="2026-04-07T08:48:32.165420" elapsed="0.001001"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-06T15:00:02.510262" level="INFO">POST Request : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.171421" level="INFO">POST Request : url=http://localhost:8000/orders 
  path_url=/orders 
  headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '89', 'Content-Type': 'application/json'} 
  body=b'{"customer_name": "John Doe", "product": "Apple Laptop", "quantity": "5", "price": "0.0"}' 
  </msg>
-<msg time="2026-04-06T15:00:02.510262" level="INFO">POST Response : url=http://localhost:8000/orders 
+<msg time="2026-04-07T08:48:32.171421" level="INFO">POST Response : url=http://localhost:8000/orders 
  status=422, reason=Unprocessable Entity 
- headers={'date': 'Mon, 06 Apr 2026 09:30:01 GMT', 'server': 'uvicorn', 'content-length': '141', 'content-type': 'application/json'} 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '141', 'content-type': 'application/json'} 
  body={"detail":[{"type":"value_error","loc":["body","price"],"msg":"Value error, price must be greater than 0","input":"0.0","ctx":{"error":{}}}]} 
  </msg>
-<msg time="2026-04-06T15:00:02.510262" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<msg time="2026-04-07T08:48:32.171421" level="INFO">${response} = &lt;Response [422]&gt;</msg>
 <var>${response}</var>
 <arg>order_api</arg>
 <arg>${CREATE_ORDER_ENDPOINT}</arg>
 <arg>json=${order_payload}</arg>
 <arg>expected_status=422</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.502241" elapsed="0.008021"/>
+<status status="PASS" start="2026-04-07T08:48:32.167420" elapsed="0.004001"/>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.515247" level="INFO">Argument types are:
+<msg time="2026-04-07T08:48:32.173421" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${response.status_code}</arg>
 <arg>422</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.511264" elapsed="0.003983"/>
+<status status="PASS" start="2026-04-07T08:48:32.172421" elapsed="0.001000"/>
 </kw>
 <doc>Create order with price 0 should fail with 422</doc>
 <tag>CREATE</tag>
 <tag>INVALID</tag>
-<status status="PASS" start="2026-04-06T15:00:02.495238" elapsed="0.021026"/>
+<status status="PASS" start="2026-04-07T08:48:32.164420" elapsed="0.009001"/>
 </test>
-<test id="s1-t7" name="TC007: Create Order With Invalid Price (Negative)" line="101">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.522199" level="INFO">${order_payload} = {'customer_name': 'John Doe', 'product': 'Apple Laptop', 'quantity': '5', 'price': '-100.50'}</msg>
-<var>${order_payload}</var>
-<arg>customer_name=${VALID_CUSTOMER_NAME}</arg>
-<arg>product=${VALID_PRODUCT}</arg>
-<arg>quantity=${VALID_QUANTITY}</arg>
-<arg>price=${INVALID_PRICE_NEGATIVE}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.520204" elapsed="0.002995"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-06T15:00:02.531515" level="INFO">POST Request : url=http://localhost:8000/orders 
- path_url=/orders 
- headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '93', 'Content-Type': 'application/json'} 
- body=b'{"customer_name": "John Doe", "product": "Apple Laptop", "quantity": "5", "price": "-100.50"}' 
+<test id="s1-t5" name="TC005: Get Order By Valid ID" line="82">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.184999" level="INFO">GET Request : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ path_url=/orders/69d477885ea213418f09a372 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
  </msg>
-<msg time="2026-04-06T15:00:02.532519" level="INFO">POST Response : url=http://localhost:8000/orders 
- status=422, reason=Unprocessable Entity 
- headers={'date': 'Mon, 06 Apr 2026 09:30:01 GMT', 'server': 'uvicorn', 'content-length': '145', 'content-type': 'application/json'} 
- body={"detail":[{"type":"value_error","loc":["body","price"],"msg":"Value error, price must be greater than 0","input":"-100.50","ctx":{"error":{}}}]} 
+<msg time="2026-04-07T08:48:32.184999" level="INFO">GET Response : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '137', 'content-type': 'application/json'} 
+ body={"id":"69d477885ea213418f09a372","customer_name":"John Doe","product":"Apple Laptop","quantity":5,"price":1200.5,"status":"Order Placed"} 
  </msg>
-<msg time="2026-04-06T15:00:02.532519" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<msg time="2026-04-07T08:48:32.184999" level="INFO">${response} = &lt;Response [200]&gt;</msg>
 <var>${response}</var>
 <arg>order_api</arg>
-<arg>${CREATE_ORDER_ENDPOINT}</arg>
-<arg>json=${order_payload}</arg>
-<arg>expected_status=422</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.523512" elapsed="0.009007"/>
+<arg>${GET_ORDER_ENDPOINT}${CREATED_ORDER_ID}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.175421" elapsed="0.010577"/>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-04-06T15:00:02.536534" level="INFO">Argument types are:
+<msg time="2026-04-07T08:48:32.187998" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.185998" elapsed="0.002000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[id]</arg>
+<arg>${CREATED_ORDER_ID}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.187998" elapsed="0.002000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[customer_name]</arg>
+<arg>${VALID_CUSTOMER_NAME}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.189998" elapsed="0.002001"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[product]</arg>
+<arg>${VALID_PRODUCT}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.192999" elapsed="0.001999"/>
+</kw>
+<doc>Retrieve order using valid order ID from TC001</doc>
+<tag>READ</tag>
+<tag>VALID</tag>
+<status status="PASS" start="2026-04-07T08:48:32.174421" elapsed="0.020577"/>
+</test>
+<test id="s1-t6" name="TC006: Get Order By Invalid ID" line="92">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.202505" level="INFO">GET Request : url=http://localhost:8000/orders/507f1f77bcf86cd799439999 
+ path_url=/orders/507f1f77bcf86cd799439999 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-07T08:48:32.202505" level="INFO">GET Response : url=http://localhost:8000/orders/507f1f77bcf86cd799439999 
+ status=404, reason=Not Found 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '28', 'content-type': 'application/json'} 
+ body={"detail":"Order not found"} 
+ </msg>
+<msg time="2026-04-07T08:48:32.204665" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${GET_ORDER_ENDPOINT}${INVALID_ORDER_ID}</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.195998" elapsed="0.008667"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.206663" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.204665" elapsed="0.003000"/>
+</kw>
+<doc>Retrieve order with non-existent ID should return 404</doc>
+<tag>INVALID</tag>
+<tag>READ</tag>
+<status status="PASS" start="2026-04-07T08:48:32.194998" elapsed="0.012667"/>
+</test>
+<test id="s1-t7" name="TC007: Update Order With Valid Data" line="99">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.210665" level="INFO">${update_payload} = {'customer_name': 'Jane Smith', 'product': 'Dell Monitor', 'quantity': '3', 'price': '350.75'}</msg>
+<var>${update_payload}</var>
+<arg>customer_name=${UPDATE_CUSTOMER_NAME}</arg>
+<arg>product=${UPDATE_PRODUCT}</arg>
+<arg>quantity=${UPDATE_QUANTITY}</arg>
+<arg>price=${UPDATE_PRICE}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.208664" elapsed="0.002001"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.230887" level="INFO">PUT Request : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ path_url=/orders/69d477885ea213418f09a372 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '94', 'Content-Type': 'application/json'} 
+ body=b'{"customer_name": "Jane Smith", "product": "Dell Monitor", "quantity": "3", "price": "350.75"}' 
+ </msg>
+<msg time="2026-04-07T08:48:32.230887" level="INFO">PUT Response : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '140', 'content-type': 'application/json'} 
+ body={"id":"69d477885ea213418f09a372","customer_name":"Jane Smith","product":"Dell Monitor","quantity":3,"price":350.75,"status":"Order Updated"} 
+ </msg>
+<msg time="2026-04-07T08:48:32.230887" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${UPDATE_ORDER_ENDPOINT}${CREATED_ORDER_ID}</arg>
+<arg>json=${update_payload}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.211664" elapsed="0.019223"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.233886" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.231887" elapsed="0.001999"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[customer_name]</arg>
+<arg>${UPDATE_CUSTOMER_NAME}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.233886" elapsed="0.001999"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[product]</arg>
+<arg>${UPDATE_PRODUCT}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.235885" elapsed="0.002001"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[status]</arg>
+<arg>${STATUS_ORDER_UPDATED}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.237886" elapsed="0.002000"/>
+</kw>
+<doc>Update order with all valid parameters</doc>
+<tag>UPDATE</tag>
+<tag>VALID</tag>
+<status status="PASS" start="2026-04-07T08:48:32.207665" elapsed="0.032221"/>
+</test>
+<test id="s1-t8" name="TC008: Update Order With Invalid Customer Name" line="110">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.241886" level="INFO">${update_payload} = {'customer_name': 'A'}</msg>
+<var>${update_payload}</var>
+<arg>customer_name=${INVALID_CUSTOMER_SINGLE_CHAR}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.240886" elapsed="0.001000"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.247567" level="INFO">PUT Request : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ path_url=/orders/69d477885ea213418f09a372 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '22', 'Content-Type': 'application/json'} 
+ body=b'{"customer_name": "A"}' 
+ </msg>
+<msg time="2026-04-07T08:48:32.247567" level="INFO">PUT Response : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '167', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","customer_name"],"msg":"Value error, customer_name must contain at least 2 characters","input":"A","ctx":{"error":{}}}]} 
+ </msg>
+<msg time="2026-04-07T08:48:32.247567" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${UPDATE_ORDER_ENDPOINT}${CREATED_ORDER_ID}</arg>
+<arg>json=${update_payload}</arg>
+<arg>expected_status=422</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.241886" elapsed="0.005681"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.249564" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${response.status_code}</arg>
 <arg>422</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-04-06T15:00:02.533517" elapsed="0.004018"/>
+<status status="PASS" start="2026-04-07T08:48:32.247567" elapsed="0.001997"/>
 </kw>
-<doc>Create order with negative price should fail with 422</doc>
-<tag>CREATE</tag>
+<doc>Update order with single character customer name should fail</doc>
 <tag>INVALID</tag>
-<status status="PASS" start="2026-04-06T15:00:02.518193" elapsed="0.019342"/>
+<tag>UPDATE</tag>
+<status status="PASS" start="2026-04-07T08:48:32.239886" elapsed="0.009678"/>
+</test>
+<test id="s1-t9" name="TC009: Update Non-Existent Order" line="118">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.251564" level="INFO">${update_payload} = {'customer_name': 'Jane Smith'}</msg>
+<var>${update_payload}</var>
+<arg>customer_name=${UPDATE_CUSTOMER_NAME}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.250564" elapsed="0.001000"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.256565" level="INFO">PUT Request : url=http://localhost:8000/orders/507f1f77bcf86cd799439999 
+ path_url=/orders/507f1f77bcf86cd799439999 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '31', 'Content-Type': 'application/json'} 
+ body=b'{"customer_name": "Jane Smith"}' 
+ </msg>
+<msg time="2026-04-07T08:48:32.256565" level="INFO">PUT Response : url=http://localhost:8000/orders/507f1f77bcf86cd799439999 
+ status=404, reason=Not Found 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '28', 'content-type': 'application/json'} 
+ body={"detail":"Order not found"} 
+ </msg>
+<msg time="2026-04-07T08:48:32.257565" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${UPDATE_ORDER_ENDPOINT}${INVALID_ORDER_ID}</arg>
+<arg>json=${update_payload}</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.251564" elapsed="0.006001"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.260566" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.257565" elapsed="0.003001"/>
+</kw>
+<doc>Update order with invalid ID should return 404</doc>
+<tag>INVALID</tag>
+<tag>UPDATE</tag>
+<status status="PASS" start="2026-04-07T08:48:32.249564" elapsed="0.011002"/>
+</test>
+<test id="s1-t10" name="TC010: List All Orders" line="126">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.280183" level="INFO">GET Request : url=http://localhost:8000/orders 
+ path_url=/orders 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-07T08:48:32.280183" level="INFO">GET Response : url=http://localhost:8000/orders 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '270', 'content-type': 'application/json'} 
+ body=[{"id":"69cdf781bee1e61d138b48ad","customer_name":"jay","product":"bat","quantity":100,"price":15000.0,"status":"Order Updated"},{"id":"69d477885ea213418f09a372","customer_name":"Jane Smith","product":"Dell Monitor","quantity":3,"price":350.75,"status":"Order Updated"}] 
+ </msg>
+<msg time="2026-04-07T08:48:32.281181" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${LIST_ORDERS_ENDPOINT}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.262564" elapsed="0.018617"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.283181" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.281181" elapsed="0.002000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.286181" level="INFO">${orders} = [{'id': '69cdf781bee1e61d138b48ad', 'customer_name': 'jay', 'product': 'bat', 'quantity': 100, 'price': 15000.0, 'status': 'Order Updated'}, {'id': '69d477885ea213418f09a372', 'customer_name': 'Jane S...</msg>
+<var>${orders}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.284181" elapsed="0.002000"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.287182" level="INFO">Length is 2.</msg>
+<arg>${orders}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.286181" elapsed="0.001001"/>
+</kw>
+<doc>Retrieve list of all orders and verify it contains created order</doc>
+<tag>READ</tag>
+<tag>VALID</tag>
+<status status="PASS" start="2026-04-07T08:48:32.261566" elapsed="0.025616"/>
+</test>
+<test id="s1-t11" name="TC011: Verify No Duplicate Order IDs In List" line="135">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.294184" level="INFO">GET Request : url=http://localhost:8000/orders 
+ path_url=/orders 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-07T08:48:32.294184" level="INFO">GET Response : url=http://localhost:8000/orders 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '270', 'content-type': 'application/json'} 
+ body=[{"id":"69cdf781bee1e61d138b48ad","customer_name":"jay","product":"bat","quantity":100,"price":15000.0,"status":"Order Updated"},{"id":"69d477885ea213418f09a372","customer_name":"Jane Smith","product":"Dell Monitor","quantity":3,"price":350.75,"status":"Order Updated"}] 
+ </msg>
+<msg time="2026-04-07T08:48:32.294184" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${LIST_ORDERS_ENDPOINT}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.289182" elapsed="0.005002"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.296183" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.294184" elapsed="0.001999"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.297183" level="INFO">${orders} = [{'id': '69cdf781bee1e61d138b48ad', 'customer_name': 'jay', 'product': 'bat', 'quantity': 100, 'price': 15000.0, 'status': 'Order Updated'}, {'id': '69d477885ea213418f09a372', 'customer_name': 'Jane S...</msg>
+<var>${orders}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.296183" elapsed="0.001000"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.298183" level="INFO">${order_ids} = []</msg>
+<var>${order_ids}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.298183" elapsed="0.000000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Append To List" owner="Collections">
+<arg>${order_ids}</arg>
+<arg>${order}[id]</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.299183" elapsed="0.000000"/>
+</kw>
+<var name="${order}">{'id': '69cdf781bee1e61d138b48ad', 'customer_name': 'jay', 'product': 'bat', 'quantity': 100, 'price': 15000.0, 'status': 'Order Updated'}</var>
+<status status="PASS" start="2026-04-07T08:48:32.298183" elapsed="0.001000"/>
+</iter>
+<iter>
+<kw name="Append To List" owner="Collections">
+<arg>${order_ids}</arg>
+<arg>${order}[id]</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.299183" elapsed="0.000000"/>
+</kw>
+<var name="${order}">{'id': '69d477885ea213418f09a372', 'customer_name': 'Jane Smith', 'product': 'Dell Monitor', 'quantity': 3, 'price': 350.75, 'status': 'Order Updated'}</var>
+<status status="PASS" start="2026-04-07T08:48:32.299183" elapsed="0.001000"/>
+</iter>
+<var>${order}</var>
+<value>@{orders}</value>
+<status status="PASS" start="2026-04-07T08:48:32.298183" elapsed="0.002000"/>
+</for>
+<kw name="Get List Without Duplicates">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.302183" level="INFO">${unique_list} = []</msg>
+<var>${unique_list}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.301183" elapsed="0.001000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="List Should Contain Value" owner="Collections">
+<msg time="2026-04-07T08:48:32.304183" level="FAIL">[ ] does not contain value '69cdf781bee1e61d138b48ad'.</msg>
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Fails if the ``value`` is not found from ``list``.</doc>
+<status status="FAIL" start="2026-04-07T08:48:32.303183" elapsed="0.001000">[ ] does not contain value '69cdf781bee1e61d138b48ad'.</status>
+</kw>
+<msg time="2026-04-07T08:48:32.304183" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>List Should Contain Value</arg>
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Runs the specified keyword and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.303183" elapsed="0.001000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.306183" elapsed="0.000000"/>
+</kw>
+<arg>not ${contains}</arg>
+<arg>Append To List</arg>
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.305183" elapsed="0.001000"/>
+</kw>
+<var name="${item}">69cdf781bee1e61d138b48ad</var>
+<status status="PASS" start="2026-04-07T08:48:32.302183" elapsed="0.004000"/>
+</iter>
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="List Should Contain Value" owner="Collections">
+<msg time="2026-04-07T08:48:32.307183" level="FAIL">[ 69cdf781bee1e61d138b48ad ] does not contain value '69d477885ea213418f09a372'.</msg>
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Fails if the ``value`` is not found from ``list``.</doc>
+<status status="FAIL" start="2026-04-07T08:48:32.307183" elapsed="0.000000">[ 69cdf781bee1e61d138b48ad ] does not contain value '69d477885ea213418f09a372'.</status>
+</kw>
+<msg time="2026-04-07T08:48:32.308183" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>List Should Contain Value</arg>
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Runs the specified keyword and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.306183" elapsed="0.002000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.308183" elapsed="0.001000"/>
+</kw>
+<arg>not ${contains}</arg>
+<arg>Append To List</arg>
+<arg>${unique_list}</arg>
+<arg>${item}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.308183" elapsed="0.001000"/>
+</kw>
+<var name="${item}">69d477885ea213418f09a372</var>
+<status status="PASS" start="2026-04-07T08:48:32.306183" elapsed="0.003000"/>
+</iter>
+<var>${item}</var>
+<value>@{list}</value>
+<status status="PASS" start="2026-04-07T08:48:32.302183" elapsed="0.007000"/>
+</for>
+<return>
+<value>${unique_list}</value>
+<status status="PASS" start="2026-04-07T08:48:32.309183" elapsed="0.000000"/>
+</return>
+<msg time="2026-04-07T08:48:32.310185" level="INFO">${unique_ids} = ['69cdf781bee1e61d138b48ad', '69d477885ea213418f09a372']</msg>
+<var>${unique_ids}</var>
+<arg>${order_ids}</arg>
+<doc>Returns the list with duplicates removed</doc>
+<status status="PASS" start="2026-04-07T08:48:32.301183" elapsed="0.009002"/>
+</kw>
+<kw name="Length Should Be" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.312183" level="INFO">Length is 2.</msg>
+<arg>${order_ids}</arg>
+<arg>${unique_ids.__len__()}</arg>
+<doc>Verifies that the length of the given item is correct.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.310185" elapsed="0.001998"/>
+</kw>
+<doc>Get all orders and verify no duplicate IDs exist</doc>
+<tag>DATA_INTEGRITY</tag>
+<tag>READ</tag>
+<tag>VALID</tag>
+<status status="PASS" start="2026-04-07T08:48:32.288182" elapsed="0.024001"/>
+</test>
+<test id="s1-t12" name="TC012: Delete Order By Valid ID" line="149">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.321936" level="INFO">DELETE Request : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ path_url=/orders/69d477885ea213418f09a372 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-07T08:48:32.321936" level="INFO">DELETE Response : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '40', 'content-type': 'application/json'} 
+ body={"message":"Order deleted successfully"} 
+ </msg>
+<msg time="2026-04-07T08:48:32.321936" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${DELETE_ORDER_ENDPOINT}${CREATED_ORDER_ID}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.313183" elapsed="0.008753"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.323932" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.322934" elapsed="0.000998"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${response.json()}</arg>
+<arg>message</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.323932" elapsed="0.001001"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Order deleted successfully</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.324933" elapsed="0.002001"/>
+</kw>
+<doc>Delete order using the created order ID</doc>
+<tag>DELETE</tag>
+<tag>VALID</tag>
+<status status="PASS" start="2026-04-07T08:48:32.312183" elapsed="0.015751"/>
+</test>
+<test id="s1-t13" name="TC013: Delete Non-Existent Order" line="158">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.333935" level="INFO">DELETE Request : url=http://localhost:8000/orders/507f1f77bcf86cd799439999 
+ path_url=/orders/507f1f77bcf86cd799439999 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-07T08:48:32.333935" level="INFO">DELETE Response : url=http://localhost:8000/orders/507f1f77bcf86cd799439999 
+ status=404, reason=Not Found 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '28', 'content-type': 'application/json'} 
+ body={"detail":"Order not found"} 
+ </msg>
+<msg time="2026-04-07T08:48:32.333935" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${DELETE_ORDER_ENDPOINT}${INVALID_ORDER_ID}</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.328933" elapsed="0.005002"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.335934" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.333935" elapsed="0.001999"/>
+</kw>
+<doc>Delete order with invalid ID should return 404</doc>
+<tag>DELETE</tag>
+<tag>INVALID</tag>
+<status status="PASS" start="2026-04-07T08:48:32.327934" elapsed="0.008000"/>
+</test>
+<test id="s1-t14" name="TC014: Verify Order Is Deleted" line="165">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-07T08:48:32.344936" level="INFO">GET Request : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ path_url=/orders/69d477885ea213418f09a372 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-07T08:48:32.344936" level="INFO">GET Response : url=http://localhost:8000/orders/69d477885ea213418f09a372 
+ status=404, reason=Not Found 
+ headers={'date': 'Tue, 07 Apr 2026 03:18:31 GMT', 'server': 'uvicorn', 'content-length': '28', 'content-type': 'application/json'} 
+ body={"detail":"Order not found"} 
+ </msg>
+<msg time="2026-04-07T08:48:32.344936" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<var>${response}</var>
+<arg>order_api</arg>
+<arg>${GET_ORDER_ENDPOINT}${CREATED_ORDER_ID}</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.338934" elapsed="0.006002"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-07T08:48:32.347935" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-07T08:48:32.345935" elapsed="0.002000"/>
+</kw>
+<doc>Try to fetch deleted order and verify it returns 404</doc>
+<tag>DATA_INTEGRITY</tag>
+<tag>DELETE</tag>
+<tag>VALID</tag>
+<status status="PASS" start="2026-04-07T08:48:32.337935" elapsed="0.012000"/>
 </test>
 <kw name="Delete All Sessions" owner="RequestsLibrary" type="TEARDOWN">
-<msg time="2026-04-06T15:00:02.540535" level="INFO">Deleting All Sessions</msg>
+<msg time="2026-04-07T08:48:32.351937" level="INFO">Deleting All Sessions</msg>
 <doc>Removes all the session objects</doc>
-<status status="PASS" start="2026-04-06T15:00:02.540535" elapsed="0.001000"/>
+<status status="PASS" start="2026-04-07T08:48:32.351937" elapsed="0.001003"/>
 </kw>
-<status status="PASS" start="2026-04-06T14:59:59.668885" elapsed="2.872650"/>
+<status status="PASS" start="2026-04-07T08:48:29.559225" elapsed="2.793715"/>
 </suite>
 <statistics>
 <total>
-<stat pass="7" fail="0" skip="0">All Tests</stat>
+<stat pass="14" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="7" fail="0" skip="0">CREATE</stat>
-<stat pass="6" fail="0" skip="0">INVALID</stat>
-<stat pass="1" fail="0" skip="0">VALID</stat>
+<stat pass="4" fail="0" skip="0">CREATE</stat>
+<stat pass="2" fail="0" skip="0">DATA_INTEGRITY</stat>
+<stat pass="3" fail="0" skip="0">DELETE</stat>
+<stat pass="7" fail="0" skip="0">INVALID</stat>
+<stat pass="4" fail="0" skip="0">READ</stat>
+<stat pass="3" fail="0" skip="0">UPDATE</stat>
+<stat pass="7" fail="0" skip="0">VALID</stat>
 </tag>
 <suite>
-<stat name="Order Api Tests V3" id="s1" pass="7" fail="0" skip="0">Order Api Tests V3</stat>
+<stat name="Order Api Tests V2" id="s1" pass="14" fail="0" skip="0">Order Api Tests V2</stat>
 </suite>
 </statistics>
 <errors>
